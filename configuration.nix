@@ -33,10 +33,10 @@
     hostName = "quartz"; # Define your hostname.
     hostId = "84821397";
     extraHosts = ''
-    127.0.0.1 cnn.com
+    127.0.0.1 cnn.com www.cnn.com
     127.0.0.1 news.google.com
-    127.0.0.1 nytimes.com
-    127.0.0.1 theguardian.com
+    127.0.0.1 nytimes.com www.nytimes.com
+    127.0.0.1 theguardian.com www.theguardian.com
     '';
   };
   virtualisation.docker.enable = true;
