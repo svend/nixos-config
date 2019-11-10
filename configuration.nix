@@ -33,6 +33,7 @@
     hostName = "quartz"; # Define your hostname.
     hostId = "84821397";
     extraHosts = ''
+    127.0.0.1 npr.org text.npr.org
     127.0.0.1 cnn.com www.cnn.com
     127.0.0.1 news.google.com
     127.0.0.1 nytimes.com www.nytimes.com
@@ -88,6 +89,9 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  # services.logind.lidSwitch = "ignore";
+  services.logind.lidSwitchExternalPower = "lock";
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
