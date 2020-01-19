@@ -33,11 +33,12 @@
     hostName = "quartz"; # Define your hostname.
     hostId = "84821397";
     extraHosts = ''
-    127.0.0.1 nbcnews.com www.nbcnews.com
-    127.0.0.1 npr.org text.npr.org
     127.0.0.1 cnn.com www.cnn.com
+    127.0.0.1 nbcnews.com www.nbcnews.com
     127.0.0.1 news.google.com
+    127.0.0.1 npr.org text.npr.org
     127.0.0.1 nytimes.com www.nytimes.com
+    127.0.0.1 reddit.com www.reddit.com
     127.0.0.1 theguardian.com www.theguardian.com
     '';
   };
