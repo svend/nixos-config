@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
     ];
 
+  boot.extraModulePackages = with config.boot.kernelPackages; [ wireguard ];
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
@@ -38,7 +39,6 @@
     127.0.0.1 news.google.com
     127.0.0.1 npr.org text.npr.org
     127.0.0.1 nytimes.com www.nytimes.com
-    127.0.0.1 reddit.com www.reddit.com
     127.0.0.1 theguardian.com www.theguardian.com
     '';
   };
@@ -62,8 +62,11 @@
   environment.systemPackages = with pkgs; [
     chromium
     mkpasswd
+    gcompris
     google-chrome
     firefox-beta-bin
+    steam
+    wireguard
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -106,6 +109,7 @@
   services.printing = {
     enable = true;
     drivers = [
+      pkgs.epson-escpr2 # Epson ET-3760
       pkgs.hplip
     ];
   };
@@ -113,6 +117,9 @@
   # Enable sound.
   # sound.enable = true;
   # hardware.pulseaudio.enable = true;
+
+  # Required by Steam
+  hardware.opengl.driSupport32Bit = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
