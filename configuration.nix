@@ -10,8 +10,7 @@
       ./hardware-configuration.nix
     ];
 
-  boot.extraModulePackages = with config.boot.kernelPackages; [ wireguard ];
-
+  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -23,6 +22,8 @@
   # boot.loader.efi.efiSysMountPoint = "/boot/efi";
   # Define on which hard drive you want to install Grub.
   # boot.loader.grub.device = "nodev"; # or "nodev" for efi only
+
+  boot.extraModulePackages = with config.boot.kernelPackages; [ wireguard ];
 
   boot.initrd.luks.devices = {
     root = {
