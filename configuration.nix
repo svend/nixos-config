@@ -20,28 +20,44 @@
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "nodev"; # or "nodev" for efi only
 
-  boot.initrd.luks.devices = [
-    {
-      name = "root";
+  boot.initrd.luks.devices = {
+    root = {
       device = "/dev/disk/by-uuid/9e52e0a1-1e3c-4798-8dca-403df741691b";
       preLVM = true;
       allowDiscards = true;
-    }
-  ];
+    };
+  };
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking = {
     hostName = "quartz"; # Define your hostname.
     hostId = "84821397";
-    extraHosts = ''
-    127.0.0.1 cnn.com www.cnn.com
-    127.0.0.1 nbcnews.com www.nbcnews.com
-    127.0.0.1 news.google.com
-    127.0.0.1 npr.org text.npr.org
-    127.0.0.1 nytimes.com www.nytimes.com
-    127.0.0.1 theguardian.com www.theguardian.com
-    '';
   };
+
+  networking.wireguard.interfaces = {
+    # "wg0" is the network interface name. You can name the interface arbitrarily.
+    wg0 = {
+      # Determines the IP address and subnet of the client's end of the tunnel interface.
+      ips = [ "10.0.0.2/24" "fd00::2/48" ];
+      # Default IPv6 route has lower precedence
+      # default via fe80::d6ca:6dff:fe06:c6b1 dev wlp3s0 proto ra metric 600 pref medium
+      # default dev wg0 metric 1024 pref medium
+      postSetup = "ip route replace ::/0 dev wg0 metric 50 table main";
+      postShutdown = "ip route delete ::/0 dev wg0 metric 50 table main";
+      privateKeyFile = "/etc/nixos/wireguard/private";
+
+      peers = [
+        {
+          publicKey = "S3XliYkSL3e+oX8gU+uBu4fk1RmzHUZYBFzVXLa3zww=";
+          allowedIPs = [ "0.0.0.0/0" "::/0" ];
+          endpoint = "[2601:601:e02:dc88:21e:37ff:feda:dd22]:53605";
+          # Send keepalives every 25 seconds. Important to keep NAT tables alive.
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+  };
+
   virtualisation.docker.enable = true;
 
   # Select internationalisation properties.
@@ -64,7 +80,8 @@
     mkpasswd
     gcompris
     google-chrome
-    firefox-beta-bin
+    (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
+    (firefox-beta-bin.override { extraNativeMessagingHosts = [ passff-host ]; })
     steam
     wireguard
   ];
@@ -110,7 +127,7 @@
     enable = true;
     drivers = [
       pkgs.epson-escpr2 # Epson ET-3760
-      pkgs.hplip
+      # pkgs.hplip # HP inkjet (obsolete)
     ];
   };
 
