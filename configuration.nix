@@ -88,6 +88,7 @@
     (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
     (firefox-beta-bin.override { extraNativeMessagingHosts = [ passff-host ]; })
     steam
+    qrencode # to print wireguard QR codes
     wireguard
   ];
 
