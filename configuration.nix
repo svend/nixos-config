@@ -117,6 +117,8 @@
 
   services.interception-tools = {
     enable = true;
+    # https://github.com/NixOS/nixpkgs/pull/94097
+    # sudo nixos-rebuild -I nixpkgs=/home/svend/src/nixpkgs switch
     plugins = [ pkgs.interception-tools-plugins.dual-function-keys ];
     udevmonConfig = ''
         - JOB: "intercept -g $DEVNODE | dual-function-keys -c /home/svend/.dual-function-keys.yaml | uinput -d $DEVNODE"
