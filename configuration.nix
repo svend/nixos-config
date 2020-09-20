@@ -39,29 +39,30 @@
     hostId = "84821397";
   };
 
-  networking.wireguard.interfaces = {
-    # "wg0" is the network interface name. You can name the interface arbitrarily.
-    wg0 = {
-      # Determines the IP address and subnet of the client's end of the tunnel interface.
-      ips = [ "10.0.0.2/24" "fd00::2/48" ];
-      # Default IPv6 route has lower precedence
-      # default via fe80::d6ca:6dff:fe06:c6b1 dev wlp3s0 proto ra metric 600 pref medium
-      # default dev wg0 metric 1024 pref medium
-      postSetup = "ip route replace ::/0 dev wg0 metric 50 table main";
-      postShutdown = "ip route delete ::/0 dev wg0 metric 50 table main";
-      privateKeyFile = "/etc/nixos/wireguard/private";
+  # WG server is down
+  # networking.wireguard.interfaces = {
+  #   # "wg0" is the network interface name. You can name the interface arbitrarily.
+  #   wg0 = {
+  #     # Determines the IP address and subnet of the client's end of the tunnel interface.
+  #     ips = [ "10.0.0.2/24" "fd00::2/48" ];
+  #     # Default IPv6 route has lower precedence
+  #     # default via fe80::d6ca:6dff:fe06:c6b1 dev wlp3s0 proto ra metric 600 pref medium
+  #     # default dev wg0 metric 1024 pref medium
+  #     postSetup = "ip route replace ::/0 dev wg0 metric 50 table main";
+  #     postShutdown = "ip route delete ::/0 dev wg0 metric 50 table main";
+  #     privateKeyFile = "/etc/nixos/wireguard/private";
 
-      peers = [
-        {
-          publicKey = "S3XliYkSL3e+oX8gU+uBu4fk1RmzHUZYBFzVXLa3zww=";
-          allowedIPs = [ "0.0.0.0/0" "::/0" ];
-          endpoint = "[2601:601:e02:dc88:21e:37ff:feda:dd22]:53605";
-          # Send keepalives every 25 seconds. Important to keep NAT tables alive.
-          persistentKeepalive = 25;
-        }
-      ];
-    };
-  };
+  #     peers = [
+  #       {
+  #         publicKey = "S3XliYkSL3e+oX8gU+uBu4fk1RmzHUZYBFzVXLa3zww=";
+  #         allowedIPs = [ "0.0.0.0/0" "::/0" ];
+  #         endpoint = "[2601:601:e02:dc88:21e:37ff:feda:dd22]:53605";
+  #         # Send keepalives every 25 seconds. Important to keep NAT tables alive.
+  #         persistentKeepalive = 25;
+  #       }
+  #     ];
+  #   };
+  # };
 
   virtualisation.docker.enable = true;
 
@@ -113,6 +114,17 @@
     enable = true;
     enableSSHSupport = true;
   };
+
+  services.interception-tools = {
+    enable = true;
+    plugins = [ pkgs.interception-tools-plugins.dual-function-keys ];
+    udevmonConfig = ''
+        - JOB: "intercept -g $DEVNODE | dual-function-keys -c /home/svend/.dual-function-keys.yaml | uinput -d $DEVNODE"
+          DEVICE:
+            NAME: AT Translated Set 2 keyboard
+      '';
+  };
+
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
@@ -150,7 +162,7 @@
   # services.xserver.xkbOptions = "eurosign:e";
 
   # Enable touchpad support.
-  # services.xserver.libinput.enable = true;
+  services.xserver.libinput.enable = true;
 
   # Enable the KDE Desktop Environment.
   # services.xserver.displayManager.sddm.enable = true;
@@ -201,7 +213,7 @@
       gid = 1001;
     };
   };
-  hardware.trackpoint.emulateWheel = true;
+  # hardware.trackpoint.emulateWheel = true;
 
   nixpkgs.config.allowUnfree = true;
 
