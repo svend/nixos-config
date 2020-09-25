@@ -14,15 +14,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use the GRUB 2 boot loader.
-  # boot.loader.grub.enable = true;
-  # boot.loader.grub.version = 2;
-  # boot.loader.grub.efiSupport = true;
-  # boot.loader.grub.efiInstallAsRemovable = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  # Define on which hard drive you want to install Grub.
-  # boot.loader.grub.device = "nodev"; # or "nodev" for efi only
-
   boot.extraModulePackages = with config.boot.kernelPackages; [ wireguard ];
 
   boot.initrd.luks.devices = {
@@ -65,6 +56,7 @@
   # };
 
   virtualisation.docker.enable = true;
+  virtualisation.libvirtd.enable = true;
 
   # Select internationalisation properties.
   # i18n = {
@@ -178,12 +170,7 @@
   #   uid = 1000;
   # };
 
-  # 2016-05-14: card stopped working; switching to pcscd fixed it
-  # services.pcscd.enable = true;
-  # 2017-02-19: stopped working again; setting mode to 666 fixed it
-  services.udev.extraRules = ''
-    ATTR{idVendor}=="04e6", ATTR{idProduct}=="5119", ENV{ID_SMARTCARD_READER}="1", ENV{ID_SMARTCARD_READER_DRIVER}="gnupg", GROUP+="plugdev", TAG+="uaccess", MODE="666"
-  '';
+  services.pcscd.enable = true;
 
   users = {
     mutableUsers = false;
@@ -201,19 +188,6 @@
     extraGroups.svend = {
       gid = 1000;
     };
-
-    extraUsers.sarah = {
-      createHome = true;
-      home = "/home/sarah";
-      extraGroups = [ "networkmanager" ];
-      useDefaultShell = true;
-      uid = 1001;
-      group = "sarah";
-      passwordFile = "/etc/passwd.d/sarah";
-    };
-    extraGroups.sarah = {
-      gid = 1001;
-    };
   };
   # hardware.trackpoint.emulateWheel = true;
 
@@ -224,5 +198,4 @@
   # servers. You should change this only after NixOS release notes say you
   # should.
   system.stateVersion = "18.03"; # Did you read the comment?
-
 }
