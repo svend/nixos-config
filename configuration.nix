@@ -10,6 +10,9 @@
       ./hardware-configuration.nix
     ];
 
+  # TODO: remove once merged: https://github.com/NixOS/nixpkgs/pull/94097
+  nixpkgs.overlays = [ (import ./overlays/dual-function-keys.nix) ];
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
