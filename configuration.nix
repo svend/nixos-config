@@ -10,6 +10,14 @@
       ./hardware-configuration.nix
     ];
 
+  # Enable sound.
+  # sound.enable = true;
+  # hardware.pulseaudio.enable = true;
+
+  # hardware.trackpoint.emulateWheel = true;
+  # hardware.opengl.driSupport32Bit = true; # required by Steam
+
+  nixpkgs.config.allowUnfree = true;
   # TODO: remove once merged: https://github.com/NixOS/nixpkgs/pull/94097
   nixpkgs.overlays = [ (import ./overlays/dual-function-keys.nix) ];
 
@@ -26,14 +34,13 @@
       allowDiscards = true;
     };
   };
-  # networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
   networking = {
     hostName = "quartz"; # Define your hostname.
     hostId = "84821397";
   };
 
-  # WG server is down
+  # WireGuard server is down
   # networking.wireguard.interfaces = {
   #   # "wg0" is the network interface name. You can name the interface arbitrarily.
   #   wg0 = {
@@ -45,7 +52,6 @@
   #     postSetup = "ip route replace ::/0 dev wg0 metric 50 table main";
   #     postShutdown = "ip route delete ::/0 dev wg0 metric 50 table main";
   #     privateKeyFile = "/etc/nixos/wireguard/private";
-
   #     peers = [
   #       {
   #         publicKey = "S3XliYkSL3e+oX8gU+uBu4fk1RmzHUZYBFzVXLa3zww=";
@@ -58,9 +64,6 @@
   #   };
   # };
 
-  virtualisation.docker.enable = true;
-  virtualisation.libvirtd.enable = true;
-
   # Select internationalisation properties.
   # i18n = {
   #   consoleFont = "Lat2-Terminus16";
@@ -72,10 +75,6 @@
   time.timeZone = "US/Pacific";
 
   # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  # environment.systemPackages = with pkgs; [
-  #   wget vim
-  # ];
   environment.systemPackages = with pkgs; [
     chromium
     mkpasswd
@@ -88,26 +87,19 @@
     wireguard
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.bash.enableCompletion = true;
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
 
   # List services that you want to enable:
 
-  # List services that you want to enable:
   services.avahi = {
     enable = true;
     nssmdns = true;
     # publish.enable = true;
     # publish.addresses = true;
     # publish.workstation = true;
-  };
-
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
   };
 
   services.interception-tools = {
@@ -135,9 +127,6 @@
   services.logind.lidSwitchExternalPower = "lock";
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable CUPS to print documents.
   services.printing = {
     enable = true;
     drivers = [
@@ -146,34 +135,16 @@
     ];
   };
 
-  # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
-
-  # Required by Steam
-  hardware.opengl.driSupport32Bit = true;
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services.pcscd.enable = true;
+  services.xserver.enable = true; # enable the X11 windowing system.
   # services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
-
-  # Enable touchpad support.
-  services.xserver.libinput.enable = true;
-
-  # Enable the KDE Desktop Environment.
-  # services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.desktopManager.plasma5.enable = true;
+  services.xserver.libinput.enable = true; # enable touchpad support
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome3.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.extraUsers.guest = {
-  #   isNormalUser = true;
-  #   uid = 1000;
-  # };
-
-  services.pcscd.enable = true;
+  virtualisation.docker.enable = true;
+  virtualisation.libvirtd.enable = true;
 
   users = {
     mutableUsers = false;
@@ -192,9 +163,6 @@
       gid = 1000;
     };
   };
-  # hardware.trackpoint.emulateWheel = true;
-
-  nixpkgs.config.allowUnfree = true;
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
