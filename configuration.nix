@@ -111,6 +111,9 @@
         - JOB: "intercept -g $DEVNODE | dual-function-keys -c /home/svend/.dual-function-keys.yaml | uinput -d $DEVNODE"
           DEVICE:
             NAME: AT Translated Set 2 keyboard
+        - JOB: "intercept -g $DEVNODE | dual-function-keys -c /home/svend/.dual-function-keys.yaml | uinput -d $DEVNODE"
+          DEVICE:
+            NAME: Lenovo ThinkPad Compact USB Keyboard with TrackPoint
       '';
   };
 
