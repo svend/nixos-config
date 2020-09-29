@@ -3,10 +3,32 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
+let
+  # TODO: not working, maybe Wayland?
+  # https://nixos.org/manual/nixos/stable/options.html#opt-services.xserver.displayManager.sessionCommands
+  myXmodmap = pkgs.writeText "xkb-layout" ''
+    ! Left shift on Thinkpad X230 has developed an issue where pressing righ-shift
+    ! results in shift and pgup. Disable pgup (keycode 112). (Use `xev` to debug.)
+    keycode 112 =
+  '';
 
+  dualFunctionKeysConfig = pkgs.writeText "dual-function-keys.yaml" ''
+    TIMING:
+      TAP_MILLISEC: 200
+      DOUBLE_TAP_MILLISEC: 150
+
+    # See https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h
+    MAPPINGS:
+      # Space as control key
+      - KEY: KEY_SPACE
+        TAP: KEY_SPACE
+        HOLD: KEY_RIGHTCTRL
+  '';
+in
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -108,13 +130,13 @@
     # sudo nixos-rebuild -I nixpkgs=/home/svend/src/nixpkgs switch
     plugins = [ pkgs.interception-tools-plugins.dual-function-keys ];
     udevmonConfig = ''
-        - JOB: "intercept -g $DEVNODE | dual-function-keys -c /home/svend/.dual-function-keys.yaml | uinput -d $DEVNODE"
-          DEVICE:
-            NAME: AT Translated Set 2 keyboard
-        - JOB: "intercept -g $DEVNODE | dual-function-keys -c /home/svend/.dual-function-keys.yaml | uinput -d $DEVNODE"
-          DEVICE:
-            NAME: Lenovo ThinkPad Compact USB Keyboard with TrackPoint
-      '';
+      - JOB: "intercept -g $DEVNODE | dual-function-keys -c ${dualFunctionKeysConfig} | uinput -d $DEVNODE"
+        DEVICE:
+          NAME: AT Translated Set 2 keyboard
+      - JOB: "intercept -g $DEVNODE | dual-function-keys -c ${dualFunctionKeysConfig} | uinput -d $DEVNODE"
+        DEVICE:
+          NAME: Lenovo ThinkPad Compact USB Keyboard with TrackPoint
+    '';
   };
 
   # Enable the OpenSSH daemon.
@@ -139,12 +161,21 @@
   };
 
   services.pcscd.enable = true;
-  services.xserver.enable = true; # enable the X11 windowing system.
+
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
   # services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
-  services.xserver.libinput.enable = true; # enable touchpad support
+
+  # Enable touchpad support.
+  services.xserver.libinput.enable = true;
+
+  # Enable the Gnome Desktop Environment
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome3.enable = true;
+
+  services.xserver.displayManager.sessionCommands = "${pkgs.xorg.xmodmap}/bin/xmodmap ${myXmodmap}";
+
 
   virtualisation.docker.enable = true;
   virtualisation.libvirtd.enable = true;
