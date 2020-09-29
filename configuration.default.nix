@@ -21,9 +21,12 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
+  networking.interfaces.br-9d11f6c31be5.useDHCP = true;
   networking.interfaces.docker0.useDHCP = true;
   networking.interfaces.enp0s25.useDHCP = true;
-  networking.interfaces.wg0.useDHCP = true;
+  networking.interfaces.veth4703bf7.useDHCP = true;
+  networking.interfaces.virbr0.useDHCP = true;
+  networking.interfaces.virbr0-nic.useDHCP = true;
   networking.interfaces.wlp3s0.useDHCP = true;
 
   # Configure network proxy if necessary
@@ -97,7 +100,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "20.03"; # Did you read the comment?
+  system.stateVersion = "21.03"; # Did you read the comment?
 
 }
 
