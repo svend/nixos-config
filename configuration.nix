@@ -38,6 +38,7 @@ in
   # hardware.trackpoint.emulateWheel = true;
   # hardware.opengl.driSupport32Bit = true; # required by Steam
 
+  # Enable Nix Flakes: https://nixos.wiki/wiki/Flakes
   nix = {
     package = pkgs.nixUnstable;
     extraOptions = ''
@@ -110,9 +111,14 @@ in
     google-chrome
     (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
     (firefox-beta-bin.override { extraNativeMessagingHosts = [ passff-host ]; })
+    gimp
+    inkskape
+    smartmontools
     steam
     qrencode # to print wireguard QR codes
+    usbutils
     wireguard
+    xev
   ];
 
   programs.gnupg.agent = {
