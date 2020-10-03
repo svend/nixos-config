@@ -112,13 +112,13 @@ in
     (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
     (firefox-beta-bin.override { extraNativeMessagingHosts = [ passff-host ]; })
     gimp
-    inkskape
+    inkscape
     smartmontools
     steam
     qrencode # to print wireguard QR codes
     usbutils
     wireguard
-    xev
+    xorg.xev
   ];
 
   programs.gnupg.agent = {
