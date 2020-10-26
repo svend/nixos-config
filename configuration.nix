@@ -50,6 +50,9 @@ in
   # TODO: remove once merged: https://github.com/NixOS/nixpkgs/pull/94097
   nixpkgs.overlays = [ (import ./overlays/pkgs.nix) ];
 
+  # Enable WireGuard module
+  boot.extraModulePackages = with config.boot.kernelPackages; [ wireguard ];
+
   # boot.kernelModules is concatenated with setting in
   # hardware-configuration.nix
   # https://nixos.org/manual/nixos/stable/index.html#sec-modularity
@@ -63,8 +66,6 @@ in
   services.udev.extraRules = ''
     KERNEL=="i2c-[0-9]*", TAG+="uaccess"
   '';
-
-  boot.extraModulePackages = with config.boot.kernelPackages; [ wireguard ];
 
   boot.initrd.luks.devices = {
     root = {
@@ -125,7 +126,7 @@ in
     inkscape
     smartmontools
     steam
-    qrencode # to print wireguard QR codes
+    qrencode # to print WireGuard QR codes
     usbutils
     wireguard
     xorg.xev
