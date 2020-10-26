@@ -50,6 +50,11 @@ in
   # TODO: remove once merged: https://github.com/NixOS/nixpkgs/pull/94097
   nixpkgs.overlays = [ (import ./overlays/pkgs.nix) ];
 
+  # boot.kernelModules is concatenated with setting in
+  # hardware-configuration.nix
+  # https://nixos.org/manual/nixos/stable/index.html#sec-modularity
+  boot.kernelModules = [ "i2c_dev" ]; # i2c_dev for DDC support (/dev/i2c-*)
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -218,6 +223,7 @@ in
       uid = 1000;
       group = "svend";
       # mkpasswd -m sha-512 | sudo tee /etc/passwd.d/svend
+      # hashedPassword = "";
       passwordFile = "/etc/passwd.d/svend";
     };
     extraGroups.svend = {
