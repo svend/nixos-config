@@ -42,17 +42,22 @@ in
   nix = {
     package = pkgs.nixUnstable;
     extraOptions = ''
-      experimental-features = nix-command flakes
+      experimental-features = nix-command flakes ca-references
     '';
   };
 
   nixpkgs.config.allowUnfree = true;
   # TODO: remove once merged: https://github.com/NixOS/nixpkgs/pull/94097
-  nixpkgs.overlays = [ (import ./overlays/dual-function-keys.nix) ];
+  nixpkgs.overlays = [ (import ./overlays/pkgs.nix) ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # DDC support (/dev/i2c-*)
+  services.udev.extraRules = ''
+    KERNEL=="i2c-[0-9]*", TAG+="uaccess"
+  '';
 
   boot.extraModulePackages = with config.boot.kernelPackages; [ wireguard ];
 
@@ -185,6 +190,19 @@ in
   # Enable the Gnome Desktop Environment
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome3.enable = true;
+
+  systemd.services.display-switch = {
+    description = "USB-triggered display switch";
+    environment = {
+      XDG_CONFIG_HOME = pkgs.display-switch-config;
+    };
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.display-switch}/bin/display_switch";
+    };
+    # Will fail to start if display is not connected
+    # wantedBy = [ "default.target" ];
+  };
 
   virtualisation.docker.enable = true;
   virtualisation.libvirtd.enable = true;
