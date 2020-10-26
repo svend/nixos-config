@@ -206,8 +206,7 @@ in
       Type = "simple";
       ExecStart = "${pkgs.display-switch}/bin/display_switch";
     };
-    # Will fail to start if display is not connected
-    # wantedBy = [ "default.target" ];
+    wantedBy = [ "default.target" ];
   };
 
   virtualisation.docker.enable = true;
