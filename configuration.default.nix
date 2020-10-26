@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -103,4 +104,3 @@
   system.stateVersion = "21.03"; # Did you read the comment?
 
 }
-

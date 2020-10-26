@@ -1,5 +1,9 @@
-{ stdenv, fetchFromGitLab, pkgconfig, libyamlcpp,
-  libevdev }:
+{ stdenv
+, fetchFromGitLab
+, pkgconfig
+, libyamlcpp
+, libevdev
+}:
 
 stdenv.mkDerivation rec {
   pname = "dual-function-keys";
