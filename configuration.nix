@@ -3,27 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-let
-  dualFunctionKeysConfig = pkgs.writeText "dual-function-keys.yaml" ''
-    TIMING:
-      TAP_MILLISEC: 200
-      DOUBLE_TAP_MILLISEC: 150
-
-    # See https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h
-    MAPPINGS:
-
-      # Space as control key
-      - KEY: KEY_SPACE
-        TAP: KEY_SPACE
-        HOLD: KEY_RIGHTCTRL
-
-      # Left shift on Thinkpad X230 has developed an issue where pressing righ-shift
-      # results in shift and pgup. Disable pgup (keycode 112). (Use `xev` to debug.)
-      - KEY: KEY_PAGEUP
-        TAP: KEY_RIGHTSHIFT
-        HOLD: KEY_RIGHTSHIFT
-  '';
-in
 {
   imports =
     [
@@ -61,11 +40,6 @@ in
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  # DDC support (/dev/i2c-*)
-  services.udev.extraRules = ''
-    KERNEL=="i2c-[0-9]*", TAG+="uaccess"
-  '';
 
   boot.initrd.luks.devices = {
     root = {
@@ -111,10 +85,8 @@ in
   #   defaultLocale = "en_US.UTF-8";
   # };
 
-  # Set your time zone.
   time.timeZone = "US/Pacific";
 
-  # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
     chromium
     mkpasswd
@@ -147,20 +119,42 @@ in
     # publish.workstation = true;
   };
 
-  services.interception-tools = {
-    enable = true;
-    # https://github.com/NixOS/nixpkgs/pull/94097
-    # sudo nixos-rebuild -I nixpkgs=/home/svend/src/nixpkgs switch
-    plugins = [ pkgs.interception-tools-plugins.dual-function-keys ];
-    udevmonConfig = ''
-      - JOB: "intercept -g $DEVNODE | dual-function-keys -c ${dualFunctionKeysConfig} | uinput -d $DEVNODE"
-        DEVICE:
-          NAME: AT Translated Set 2 keyboard
-      - JOB: "intercept -g $DEVNODE | dual-function-keys -c ${dualFunctionKeysConfig} | uinput -d $DEVNODE"
-        DEVICE:
-          NAME: Lenovo ThinkPad Compact USB Keyboard with TrackPoint
-    '';
-  };
+  services.interception-tools =
+    let
+      dualFunctionKeysConfig = pkgs.writeText "dual-function-keys.yaml" ''
+        TIMING:
+          TAP_MILLISEC: 200
+          DOUBLE_TAP_MILLISEC: 150
+
+        # See https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h
+        MAPPINGS:
+
+          # Space as control key
+          - KEY: KEY_SPACE
+            TAP: KEY_SPACE
+            HOLD: KEY_RIGHTCTRL
+
+          # Left shift on Thinkpad X230 has developed an issue where pressing righ-shift
+          # results in shift and pgup. Disable pgup (keycode 112). (Use `xev` to debug.)
+          - KEY: KEY_PAGEUP
+            TAP: KEY_RIGHTSHIFT
+            HOLD: KEY_RIGHTSHIFT
+      '';
+    in
+    {
+      enable = true;
+      # https://github.com/NixOS/nixpkgs/pull/94097
+      # sudo nixos-rebuild -I nixpkgs=/home/svend/src/nixpkgs switch
+      plugins = [ pkgs.interception-tools-plugins.dual-function-keys ];
+      udevmonConfig = ''
+        - JOB: "intercept -g $DEVNODE | dual-function-keys -c ${dualFunctionKeysConfig} | uinput -d $DEVNODE"
+          DEVICE:
+            NAME: AT Translated Set 2 keyboard
+        - JOB: "intercept -g $DEVNODE | dual-function-keys -c ${dualFunctionKeysConfig} | uinput -d $DEVNODE"
+          DEVICE:
+            NAME: Lenovo ThinkPad Compact USB Keyboard with TrackPoint
+      '';
+    };
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
@@ -179,11 +173,15 @@ in
     enable = true;
     drivers = [
       pkgs.epson-escpr2 # Epson ET-3760
-      # pkgs.hplip # HP inkjet (obsolete)
     ];
   };
 
   services.pcscd.enable = true;
+
+  # DDC support for display-switch (/dev/i2c-*)
+  services.udev.extraRules = ''
+    KERNEL=="i2c-[0-9]*", TAG+="uaccess"
+  '';
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
