@@ -195,17 +195,27 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome3.enable = true;
 
-  systemd.services.display-switch = {
-    description = "USB-triggered display switch";
-    environment = {
-      XDG_CONFIG_HOME = pkgs.display-switch-config;
+  systemd.services.display-switch =
+    let
+      display-switch-config = pkgs.runCommand "display-switch-config"
+        {
+          config = ./config/display-switch/display-switch.ini;
+        } ''
+        mkdir -p "$out/display-switch"
+        cp "$config" "$out/display-switch/display-switch.ini"
+      '';
+    in
+    {
+      description = "USB-triggered display switch";
+      environment = {
+        XDG_CONFIG_HOME = display-switch-config;
+      };
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.display-switch}/bin/display_switch";
+      };
+      wantedBy = [ "default.target" ];
     };
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.display-switch}/bin/display_switch";
-    };
-    wantedBy = [ "default.target" ];
-  };
 
   virtualisation.docker.enable = true;
   virtualisation.libvirtd.enable = true;
