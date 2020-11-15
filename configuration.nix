@@ -15,12 +15,6 @@
       ./xserver.nix
     ];
 
-  # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
-
-  # hardware.trackpoint.emulateWheel = true;
-
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [ (import ./overlays/pkgs.nix) ];
 
@@ -41,13 +35,6 @@
     hostId = "84821397";
   };
 
-  # Select internationalisation properties.
-  # i18n = {
-  #   consoleFont = "Lat2-Terminus16";
-  #   consoleKeyMap = "us";
-  #   defaultLocale = "en_US.UTF-8";
-  # };
-
   time.timeZone = "US/Pacific";
 
   environment.systemPackages = with pkgs; [
@@ -61,14 +48,9 @@
     enableSSHSupport = true;
   };
 
-  # List services that you want to enable:
-
   services.avahi = {
     enable = true;
     nssmdns = true;
-    # publish.enable = true;
-    # publish.addresses = true;
-    # publish.workstation = true;
   };
 
   services.interception-tools =
@@ -107,12 +89,6 @@
             NAME: Lenovo ThinkPad Compact USB Keyboard with TrackPoint
       '';
     };
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # services.logind.lidSwitch = "ignore";
   services.logind.lidSwitchExternalPower = "lock";
