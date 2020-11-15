@@ -18,7 +18,7 @@
   #     # default dev wg0 metric 1024 pref medium
   #     postSetup = "ip route replace ::/0 dev wg0 metric 50 table main";
   #     postShutdown = "ip route delete ::/0 dev wg0 metric 50 table main";
-  #     privateKeyFile = "/etc/nixos/wireguard/private";
+  #     privateKeyFile = "/etc/nixos-secrets/wireguard/private";
   #     peers = [
   #       {
   #         publicKey = "S3XliYkSL3e+oX8gU+uBu4fk1RmzHUZYBFzVXLa3zww=";
