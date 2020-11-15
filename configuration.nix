@@ -8,7 +8,7 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      # ./display-switch.nix
+      ./display-switch.nix
       ./wireguard.nix
     ];
 
