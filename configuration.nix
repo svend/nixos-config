@@ -9,6 +9,7 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./display-switch.nix
+      ./nix-flakes.nix
       # ./steam.nix
       ./wireguard.nix
       ./xserver.nix
@@ -19,14 +20,6 @@
   # hardware.pulseaudio.enable = true;
 
   # hardware.trackpoint.emulateWheel = true;
-
-  # Enable Nix Flakes: https://nixos.wiki/wiki/Flakes
-  nix = {
-    package = pkgs.nixUnstable;
-    extraOptions = ''
-      experimental-features = nix-command flakes ca-references
-    '';
-  };
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [ (import ./overlays/pkgs.nix) ];
@@ -114,9 +107,6 @@
             NAME: Lenovo ThinkPad Compact USB Keyboard with TrackPoint
       '';
     };
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
