@@ -17,7 +17,6 @@
     gcompris
     google-chrome
     (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
-    (firefox-beta-bin.override { extraNativeMessagingHosts = [ passff-host ]; })
     gimp
     inkscape
     xorg.xev

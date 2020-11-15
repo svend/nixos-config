@@ -31,7 +31,7 @@
   };
 
   networking = {
-    hostName = "quartz"; # Define your hostname.
+    hostName = "quartz";
     hostId = "84821397";
   };
 
