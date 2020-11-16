@@ -110,6 +110,7 @@
     mutableUsers = false;
 
     extraUsers.svend = {
+      description = "Svend Sorensen";
       createHome = true;
       home = "/home/svend";
       extraGroups = [ "docker" "networkmanager" "wheel" ];
