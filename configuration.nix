@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ./display-switch.nix
       ./nix-flakes.nix
+      ./obs.nix
       # ./steam.nix
       ./wireguard.nix
       ./xserver.nix
