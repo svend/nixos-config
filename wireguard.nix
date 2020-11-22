@@ -1,10 +1,11 @@
 { config, pkgs, ... }:
 {
-  boot.extraModulePackages = with config.boot.kernelPackages; [ wireguard ];
+  networking.wireguard.enable = true;
+
+  #  boot.extraModulePackages = with config.boot.kernelPackages; [ wireguard ];
 
   environment.systemPackages = with pkgs; [
     qrencode # to print WireGuard QR codes
-    wireguard
   ];
 
   networking.wireguard.interfaces = {
