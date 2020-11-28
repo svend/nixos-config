@@ -11,7 +11,7 @@
       ./display-switch.nix
       ./nix-flakes.nix
       ./obs-studio.nix
-      # ./steam.nix
+      ./steam.nix
       ./wireguard.nix
       ./xserver.nix
     ];
