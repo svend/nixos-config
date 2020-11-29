@@ -24,14 +24,14 @@
 
       peers = [
         {
-          publicKey = "XX0kFECvZZpdvvCU0pGsJJS2woqsw+puP403tQcX0gc=";
-          allowedIPs = [ "10.0.0.8/32" "fd00::8/64" ];
-          endpoint = "192.241.178.62:51820";
-        }
-        {
           publicKey = "VfEKXJmJ+moe4DfTv8bDJlHiwQKc4KYaOqzeIacJxG4=";
           allowedIPs = [ "10.0.0.9/32" "fd00::9/64" ];
-          endpoint = "198.199.118.196:51820";
+          endpoint = "wg0.i.svends.net:51820";
+        }
+        {
+          publicKey = "XX0kFECvZZpdvvCU0pGsJJS2woqsw+puP403tQcX0gc=";
+          allowedIPs = [ "10.0.0.8/32" "fd00::8/64" ];
+          endpoint = "wg1.i.svends.net:51820";
         }
       ];
     };
