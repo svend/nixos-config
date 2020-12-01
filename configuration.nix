@@ -16,6 +16,10 @@
       ./xserver.nix
     ];
 
+  # Enable automatic updates
+  system.autoUpgrade.enable = true;
+  # system.autoUpgrade.allowReboot = true;
+
   services.prometheus = {
     exporters.node = {
       enable = true;
