@@ -4,6 +4,12 @@
 
 { config, pkgs, ... }:
 {
+  # networking.firewall.enable = false;
+  networking.firewall.interfaces.enp0s25 = {
+    allowedTCPPortRanges = [ { from = 0; to = 65535; } ];
+    allowedUDPPortRanges = [ { from = 0; to = 65535; } ];
+  };
+
   imports =
     [
       # Include the results of the hardware scan.
@@ -17,6 +23,7 @@
     ];
 
   # Enable automatic updates
+  # TODO: Do automatic upgrades work with flakes?
   system.autoUpgrade.enable = true;
   # system.autoUpgrade.allowReboot = true;
 
