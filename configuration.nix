@@ -4,11 +4,14 @@
 
 { config, pkgs, ... }:
 {
-  # networking.firewall.enable = false;
-  networking.firewall.interfaces.enp0s25 = {
-    allowedTCPPortRanges = [ { from = 0; to = 65535; } ];
-    allowedUDPPortRanges = [ { from = 0; to = 65535; } ];
-  };
+  # To set device libinput device quirks, set environment.etc
+  # libinput/local-overrides.quirks https://github.com/NixOS/nixpkgs/pull/70520
+
+  # # networking.firewall.enable = false;
+  # networking.firewall.interfaces.enp0s25 = {
+  #   allowedTCPPortRanges = [{ from = 0; to = 65535; }];
+  #   allowedUDPPortRanges = [{ from = 0; to = 65535; }];
+  # };
 
   imports =
     [
@@ -58,6 +61,7 @@
   time.timeZone = "US/Pacific";
 
   environment.systemPackages = with pkgs; [
+    libinput
     mkpasswd
     smartmontools
     usbutils

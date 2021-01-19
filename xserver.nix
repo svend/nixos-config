@@ -8,6 +8,9 @@
   # Enable touchpad support.
   services.xserver.libinput.enable = true;
 
+  # Synaptics conflicts with libinput
+  # services.xserver.synaptics.enable = true;
+
   # Enable the Gnome Desktop Environment
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome3.enable = true;
