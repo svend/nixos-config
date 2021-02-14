@@ -7,12 +7,6 @@
   # To set device libinput device quirks, set environment.etc
   # libinput/local-overrides.quirks https://github.com/NixOS/nixpkgs/pull/70520
 
-  # # networking.firewall.enable = false;
-  # networking.firewall.interfaces.enp0s25 = {
-  #   allowedTCPPortRanges = [{ from = 0; to = 65535; }];
-  #   allowedUDPPortRanges = [{ from = 0; to = 65535; }];
-  # };
-
   imports =
     [
       # Include the results of the hardware scan.
@@ -21,6 +15,7 @@
       ./interception-tools.nix
       ./nix-flakes.nix
       ./obs-studio.nix
+      ./prometheus.nix
       ./steam.nix
       ./wireguard.nix
       ./xserver.nix
@@ -28,16 +23,8 @@
 
   # Enable automatic updates
   # TODO: Do automatic upgrades work with flakes?
-  system.autoUpgrade.enable = true;
+  # system.autoUpgrade.enable = true;
   # system.autoUpgrade.allowReboot = true;
-
-  services.prometheus = {
-    exporters.node = {
-      enable = true;
-      openFirewall = true;
-      firewallFilter = "-i wg0 -p tcp -m tcp --dport 9100";
-    };
-  };
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [ (import ./overlays/pkgs.nix) ];
@@ -68,6 +55,7 @@
     usbutils
   ];
 
+  services.pcscd.enable = true;
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
@@ -88,8 +76,6 @@
       pkgs.epson-escpr2 # Epson ET-3760
     ];
   };
-
-  services.pcscd.enable = true;
 
   virtualisation.docker.enable = true;
   virtualisation.libvirtd.enable = true;
