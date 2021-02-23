@@ -21,7 +21,7 @@
     # to ~/.config/obs-studio/plugins
     #
     # ln -s /nix/store/b7vj20dglnrs8sxhxdb4njya26nfhqbl-obs-v4l2sink-0.1.0-12-g1ec3c8a/share/obs/obs-plugins/v4l2sink  ~/.config/obs-studio/plugins
-    obs-v4l2sink 
+    obs-v4l2sink
     v4l-utils
   ];
 }
