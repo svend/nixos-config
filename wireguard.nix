@@ -32,7 +32,7 @@
           publicKey = "VfEKXJmJ+moe4DfTv8bDJlHiwQKc4KYaOqzeIacJxG4=";
           allowedIPs = [ "10.0.0.9/32" "fd00::9/64" ];
           # allowedIPs = [ "0.0.0.0/0" "::/0" ];
-          endpoint = "wg0.i.svends.net:51820";
+          endpoint = "c0.us-west.svends.net:51820";
 
           # Send keepalives every 25 seconds. Important to keep NAT tables alive.
           persistentKeepalive = 25;
