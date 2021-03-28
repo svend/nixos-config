@@ -16,7 +16,7 @@
       ./nix-flakes.nix
       ./obs-studio.nix
       ./prometheus.nix
-      ./steam.nix
+      # ./steam.nix
       ./wireguard.nix
       ./xserver.nix
     ];
