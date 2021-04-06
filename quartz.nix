@@ -21,6 +21,9 @@
       ./xserver.nix
     ];
 
+  # temp: netbook router
+  networking.firewall.enable = false;
+
   # Enable automatic updates
   # TODO: Do automatic upgrades work with flakes?
   # system.autoUpgrade.enable = true;
