@@ -74,23 +74,23 @@
       # sudo nixos-rebuild -I nixpkgs=/home/svend/src/nixpkgs switch
       plugins = [ pkgs.interception-tools-plugins.dual-function-keys ];
       udevmonConfig = ''
-        - CMD: /nix/store/q7dfvnklx0nr7issxg0vpyk5skyynccd-interception-tools-0.6.4/bin/mux -c mouse-modifiers
-        - JOB: /nix/store/q7dfvnklx0nr7issxg0vpyk5skyynccd-interception-tools-0.6.4/bin/mux -i mouse-modifiers | dual-function-keys -c ${dualFunctionKeysConfig} | uinput -c ${hybridConfig}
-        - JOB: intercept $DEVNODE | /nix/store/q7dfvnklx0nr7issxg0vpyk5skyynccd-interception-tools-0.6.4/bin/mux -o mouse-modifiers
+        # - CMD: /nix/store/q7dfvnklx0nr7issxg0vpyk5skyynccd-interception-tools-0.6.4/bin/mux -c mouse-modifiers
+        # - JOB: /nix/store/q7dfvnklx0nr7issxg0vpyk5skyynccd-interception-tools-0.6.4/bin/mux -i mouse-modifiers | dual-function-keys -c ${dualFunctionKeysConfig} | uinput -c ${hybridConfig}
+        # - JOB: intercept $DEVNODE | /nix/store/q7dfvnklx0nr7issxg0vpyk5skyynccd-interception-tools-0.6.4/bin/mux -o mouse-modifiers
+        #   DEVICE:
+        #     LINK: /dev/input/by-id/usb-Lenovo_ThinkPad_Compact_USB_Keyboard_with_TrackPoint-event-kbd
+        # - JOB: intercept -g $DEVNODE | /nix/store/q7dfvnklx0nr7issxg0vpyk5skyynccd-interception-tools-0.6.4/bin/mux -o mouse-modifiers
+        #   DEVICE:
+        #     LINK: /dev/input/by-id/usb-Lenovo_ThinkPad_Compact_USB_Keyboard_with_TrackPoint-if01-event-mouse
+        - JOB: "intercept -g $DEVNODE | dual-function-keys -c ${dualFunctionKeysConfig} | uinput -d $DEVNODE"
           DEVICE:
-            LINK: /dev/input/by-id/usb-Lenovo_ThinkPad_Compact_USB_Keyboard_with_TrackPoint-event-kbd
-        - JOB: intercept -g $DEVNODE | /nix/store/q7dfvnklx0nr7issxg0vpyk5skyynccd-interception-tools-0.6.4/bin/mux -o mouse-modifiers
+            NAME: AT Translated Set 2 keyboard
+        - JOB: "intercept -g $DEVNODE | dual-function-keys -c ${dualFunctionKeysConfig} | uinput -d $DEVNODE"
           DEVICE:
-            LINK: /dev/input/by-id/usb-Lenovo_ThinkPad_Compact_USB_Keyboard_with_TrackPoint-if01-event-mouse
-        # - JOB: "intercept -g $DEVNODE | dual-function-keys -c ${dualFunctionKeysConfig} | uinput -d $DEVNODE"
-        #   DEVICE:
-        #     NAME: AT Translated Set 2 keyboard
-        # - JOB: "intercept -g $DEVNODE | dual-function-keys -c ${dualFunctionKeysConfig} | uinput -d $DEVNODE"
-        #   DEVICE:
-        #     NAME: Lenovo ThinkPad Compact USB Keyboard with TrackPoint
-        # - JOB: "intercept -g $DEVNODE | dual-function-keys -c ${dualFunctionKeysConfig} | uinput -d $DEVNODE"
-        #   DEVICE:
-        #     NAME: Keychron Keychron C1
+            NAME: Lenovo ThinkPad Compact USB Keyboard with TrackPoint
+        - JOB: "intercept -g $DEVNODE | dual-function-keys -c ${dualFunctionKeysConfig} | uinput -d $DEVNODE"
+          DEVICE:
+            NAME: Keychron Keychron C1
       '';
     };
 }
