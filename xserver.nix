@@ -14,6 +14,9 @@
   # Enable the Gnome Desktop Environment
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome3.enable = true;
+  # I use gpg-agent for SSH
+  # https://github.com/NixOS/nixpkgs/issues/42291#issuecomment-687979733
+  services.gnome3.gnome-keyring.enable = pkgs.lib.mkForce false;
 
   environment.systemPackages = with pkgs; [
     chromium
