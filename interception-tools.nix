@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    evtest
+    evtest # Prints events for an input device, including key names
     interception-tools # For uinput command
   ];
 
@@ -85,6 +85,8 @@
           DEVICE:
             EVENTS:
               EV_KEY: [KEY_SPACE]
+            NAME: .*[Kk]eyboard.*
+            LINK: .*-event-kbd
       '';
     };
 }
