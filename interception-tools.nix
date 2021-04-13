@@ -71,7 +71,6 @@
     {
       enable = true;
       # https://github.com/NixOS/nixpkgs/pull/94097
-      # sudo nixos-rebuild -I nixpkgs=/home/svend/src/nixpkgs switch
       plugins = [ pkgs.interception-tools-plugins.dual-function-keys ];
       udevmonConfig = ''
         # - CMD: /nix/store/q7dfvnklx0nr7issxg0vpyk5skyynccd-interception-tools-0.6.4/bin/mux -c mouse-modifiers
@@ -84,13 +83,8 @@
         #     LINK: /dev/input/by-id/usb-Lenovo_ThinkPad_Compact_USB_Keyboard_with_TrackPoint-if01-event-mouse
         - JOB: "intercept -g $DEVNODE | dual-function-keys -c ${dualFunctionKeysConfig} | uinput -d $DEVNODE"
           DEVICE:
-            NAME: AT Translated Set 2 keyboard
-        - JOB: "intercept -g $DEVNODE | dual-function-keys -c ${dualFunctionKeysConfig} | uinput -d $DEVNODE"
-          DEVICE:
-            NAME: Lenovo ThinkPad Compact USB Keyboard with TrackPoint
-        - JOB: "intercept -g $DEVNODE | dual-function-keys -c ${dualFunctionKeysConfig} | uinput -d $DEVNODE"
-          DEVICE:
-            NAME: Keychron Keychron C1
+            EVENTS:
+              EV_KEY: [KEY_SPACE]
       '';
     };
 }
