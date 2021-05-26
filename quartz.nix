@@ -90,7 +90,7 @@
       description = "Svend Sorensen";
       createHome = true;
       home = "/home/svend";
-      extraGroups = [ "docker" "networkmanager" "wheel" ];
+      extraGroups = [ "dialout" "docker" "networkmanager" "wheel" ];
       useDefaultShell = true;
       uid = 1000;
       group = "svend";
