@@ -94,6 +94,7 @@
       useDefaultShell = true;
       uid = 1000;
       group = "svend";
+      isNormalUser = true;
       # mkpasswd -m sha-512 | sudo tee /etc/nixos-secrets/passwd.d/svend
       # hashedPassword = "";
       passwordFile = "/etc/nixos-secrets/passwd.d/svend";
