@@ -19,6 +19,7 @@
       # ./steam.nix
       ./wireguard.nix
       ./xserver.nix
+      ./iphone.nix
     ];
 
   # temp: netbook router
