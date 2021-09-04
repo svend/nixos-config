@@ -19,12 +19,12 @@
   services.gnome.gnome-keyring.enable = pkgs.lib.mkForce false;
 
   environment.systemPackages = with pkgs; [
-    chromium
-    gcompris
-    google-chrome
+    # chromium
+    gcompris # educational software
+    # google-chrome
     (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
     gimp
     inkscape
-    xorg.xev
+    xorg.xev # keyboard/mouse event viewer
   ];
 }
