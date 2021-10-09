@@ -23,7 +23,7 @@
     ];
 
   # temp: netbook router
-  networking.firewall.enable = false;
+  # networking.firewall.enable = false;
 
   # Enable automatic updates
   # TODO: Do automatic upgrades work with flakes?
@@ -53,6 +53,7 @@
   time.timeZone = "US/Pacific";
 
   environment.systemPackages = with pkgs; [
+    ethtool
     libinput
     mkpasswd
     smartmontools
