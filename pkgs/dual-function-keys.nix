@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation rec {
   pname = "dual-function-keys";
-  version = "1.1.0";
+  version = "1.4.0";
 
   src = fetchFromGitLab {
     owner = "interception/linux/plugins";
     repo = pname;
     rev = version;
-    sha256 = "07hksca4g7v4zsvhmhc9j725j3n63fzrkx9sb4a0wrd7rwgr25rz";
+    sha256 = "sha256-xlplbkeptXMBlRnSsc5NgGJfT8aoZxTRgTwTOd7aiWg=";
   };
 
   nativeBuildInputs = [ pkgconfig ];
