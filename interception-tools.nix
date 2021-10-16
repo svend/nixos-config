@@ -76,9 +76,6 @@
       udevmonConfig = ''
         - JOB: "intercept -g $DEVNODE | dual-function-keys -c ${dualFunctionKeysConfig} | uinput -d $DEVNODE"
           DEVICE:
-            EVENTS:
-              EV_KEY: [KEY_SPACE, KEY_A, KEY_S, KEY_D, KEY_F, KEY_J, KEY_K, KEY_L, KEY_SEMICOLON]
-            NAME: .*[Kk]eyboard.*
             LINK: .*-event-kbd
       '';
     };
