@@ -2,9 +2,9 @@
 {
   # Nix Flakes: https://nixos.wiki/wiki/Flakes
   nix = {
-    package = pkgs.nixUnstable;
+    package = pkgs.nixFlakes;
     extraOptions = ''
-      experimental-features = nix-command flakes ca-references
+      experimental-features = nix-command flakes
     '';
   };
 }
