@@ -5,13 +5,13 @@ rustPlatform.buildRustPackage rec {
   version = "dev";
 
   src = fetchFromGitHub {
-    owner = "svend";
+    owner = "haimgel";
     repo = "display-switch";
-    rev = "e9c49b94014d680946117fecfdf55d6b04d1daa9";
-    sha256 = "sha256-dSzFH+CCKsRrYUbPLpKN1OV7Db8eYBG/kxf0/Y945OA=";
+    rev = "1.1.0";
+    sha256 = "sha256-jucXTVuC3H7/fkn9Z/d2ElbpRI135EooYnCfRIVuUy0=";
   };
 
-  cargoSha256 = "sha256-PyJSx8CY4qkIf6BDgxigaN9nBKzrCq1oy5qLul1eVTs=";
+  cargoSha256 = "sha256-IJRlBto5CKAIuPMzhEjpdj9DKXqJ/Hvn+oxi9bqwbjw=";
 
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ udev ];
