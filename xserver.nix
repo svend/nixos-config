@@ -21,7 +21,7 @@
   environment.systemPackages = with pkgs; [
     # chromium
     gcompris # educational software
-    # google-chrome
+    google-chrome
     (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
     gimp
     inkscape
