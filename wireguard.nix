@@ -12,8 +12,8 @@
         {
           # allowedIPs = [ "0.0.0.0/0" "::/0" ];
           allowedIPs = [ "10.0.0.0/24" "fd00::/64" ];
-          endpoint = "73.53.67.69:51820";
-          # endpoint = "192.168.88.238:51820";
+          # endpoint = "73.53.67.69:51820";
+          endpoint = "192.168.88.238:51820";
           publicKey = "Kd1JuRVmitgnwVfesMFB5z7E4saFoWSiZPzVuiafn1w=";
         }
         {
