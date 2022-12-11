@@ -25,6 +25,7 @@
     (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
     gimp
     inkscape
+    traceroute
     xorg.xev # keyboard/mouse event viewer
   ];
 }
