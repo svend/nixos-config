@@ -6,7 +6,7 @@
 
   networking.wg-quick.interfaces = {
     wg0 = {
-      address = [ "10.0.0.2/24" "fd00::2/64" ];
+      address = [ "10.0.0.10/24" "fd00::10/64" ];
       peers = [
         # Raspberry Pi
         {
@@ -23,6 +23,8 @@
           publicKey = "VfEKXJmJ+moe4DfTv8bDJlHiwQKc4KYaOqzeIacJxG4=";
         }
       ];
+      # sudo mkdir -p -m 700 /etc/nixos-secrets/wireguard
+      # wg genkey | sudo tee /etc/nixos-secrets/wireguard/private >/dev/null
       privateKeyFile = "/etc/nixos-secrets/wireguard/private";
     };
   };

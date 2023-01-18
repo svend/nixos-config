@@ -14,6 +14,7 @@
       ./hardware-configuration.nix
       ../display-switch.nix
       ../interception-tools.nix
+      ../wireguard.nix
       ../xserver.nix
     ];
 
