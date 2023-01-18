@@ -14,8 +14,8 @@
           config = pkgs.writeText "display-switch.ini" ''
             usb_device = "1a40:0101" # Terminus Technology Inc. Hub
             # usb_device = "046d:c408" # Logitech, Inc. Marble Mouse (4-button)
-            on_usb_connect = "DisplayPort1" # values are Hdmi1, Hdmi2, DisplayPort1, DisplayPort2
-            on_usb_disconnect = "Hdmi1"
+            on_usb_connect = "Hdmi1" # values are Hdmi1, Hdmi2, DisplayPort1, DisplayPort2
+            on_usb_disconnect = "Hdmi2"
           '';
         } ''
         mkdir -p "$out/display-switch"
