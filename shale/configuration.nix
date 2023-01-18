@@ -5,9 +5,13 @@
 { config, pkgs, ... }:
 
 {
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [ (import ../overlays/pkgs.nix) ];
+
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../display-switch.nix
       ../interception-tools.nix
     ];
 
@@ -99,8 +103,15 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    acpi # acpi CLI, show CPU temps, etc
+    # chromium
+    gcompris # educational software
+    google-chrome
+    (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
+    gimp
+    inkscape
+    traceroute
+    xorg.xev # keyboard/mouse event viewer
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
