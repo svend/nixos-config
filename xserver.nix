@@ -2,18 +2,17 @@
 {
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
 
-  # Enable touchpad support.
-  services.xserver.libinput.enable = true;
-
-  # Synaptics conflicts with libinput
-  # services.xserver.synaptics.enable = true;
-
-  # Enable the Gnome Desktop Environment
+  # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+
+  # Configure keymap in X11
+  services.xserver = {
+    layout = "us";
+    xkbVariant = "";
+  };
+
   # I use gpg-agent for SSH
   # https://github.com/NixOS/nixpkgs/issues/42291#issuecomment-687979733
   services.gnome.gnome-keyring.enable = pkgs.lib.mkForce false;

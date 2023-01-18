@@ -5,7 +5,7 @@
 { config, pkgs, ... }:
 {
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [ (import ./overlays/pkgs.nix) ];
+  nixpkgs.overlays = [ (import ../overlays/pkgs.nix) ];
 
   imports =
     [

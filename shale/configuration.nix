@@ -9,10 +9,12 @@
   nixpkgs.overlays = [ (import ../overlays/pkgs.nix) ];
 
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../display-switch.nix
       ../interception-tools.nix
+      ../xserver.nix
     ];
 
   # Bootloader.
@@ -53,21 +55,13 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
-  };
-
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = [
+      pkgs.epson-escpr2 # Epson ET-3760
+    ];
+  };
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -95,32 +89,9 @@
     description = "Svend Sorensen";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      firefox
-    #  thunderbird
+      #  thunderbird
     ];
   };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    acpi # acpi CLI, show CPU temps, etc
-    # chromium
-    gcompris # educational software
-    google-chrome
-    (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
-    gimp
-    inkscape
-    traceroute
-    xorg.xev # keyboard/mouse event viewer
-  ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
 
   services.pcscd.enable = true;
   programs.gnupg.agent = {
