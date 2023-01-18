@@ -4,22 +4,22 @@
 
 { config, pkgs, ... }:
 {
-  # To set device libinput device quirks, set environment.etc
-  # libinput/local-overrides.quirks https://github.com/NixOS/nixpkgs/pull/70520
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [ (import ./overlays/pkgs.nix) ];
 
   imports =
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./display-switch.nix
-      ./interception-tools.nix
-      ./nix-flakes.nix
-      ./obs-studio.nix
-      ./prometheus.nix
+      ../display-switch.nix
+      ../interception-tools.nix
+      ../nix-flakes.nix
+      ../obs-studio.nix
+      ../prometheus.nix
       # ./steam.nix
-      ./wireguard.nix
-      ./xserver.nix
-      ./iphone.nix
+      ../wireguard.nix
+      ../xserver.nix
+      ../iphone.nix
     ];
 
   # temp: netbook router
@@ -29,9 +29,6 @@
   # TODO: Do automatic upgrades work with flakes?
   # system.autoUpgrade.enable = true;
   # system.autoUpgrade.allowReboot = true;
-
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [ (import ./overlays/pkgs.nix) ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
