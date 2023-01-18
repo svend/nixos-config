@@ -30,7 +30,7 @@
   # system.autoUpgrade.enable = true;
   # system.autoUpgrade.allowReboot = true;
 
-  # Use the systemd-boot EFI boot loader.
+  # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -94,7 +94,8 @@
       uid = 1000;
       group = "svend";
       isNormalUser = true;
-      # mkpasswd -m sha-512 | sudo tee /etc/nixos-secrets/passwd.d/svend
+      # sudo mkdir -p -m 700 /etc/nixos-secrets/passwd.d
+      # mkpasswd -m sha-512 | sudo tee /etc/nixos-secrets/passwd.d/svend >/dev/null
       # hashedPassword = "";
       passwordFile = "/etc/nixos-secrets/passwd.d/svend";
     };

@@ -40,6 +40,14 @@
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
+  environment.systemPackages = with pkgs; [
+    ethtool
+    libinput
+    mkpasswd
+    smartmontools
+    usbutils
+  ];
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -68,6 +76,9 @@
     ];
   };
 
+  virtualisation.docker.enable = true;
+  # virtualisation.libvirtd.enable = true;
+
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
@@ -88,14 +99,15 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.mutableUsers = false;
   users.users.svend = {
     isNormalUser = true;
     description = "Svend Sorensen";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      #  thunderbird
-    ];
+    extraGroups = [  "docker" "networkmanager" "wheel" ];
+    # packages = with pkgs; [
+    #   #  thunderbird
+    # ];
+    passwordFile = "/etc/nixos-secrets/passwd.d/svend";
   };
 
   services.pcscd.enable = true;
