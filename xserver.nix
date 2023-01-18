@@ -19,6 +19,7 @@
   services.gnome.gnome-keyring.enable = pkgs.lib.mkForce false;
 
   environment.systemPackages = with pkgs; [
+    acpi # acpi CLI, show CPU temps, etc
     # chromium
     gcompris # educational software
     google-chrome
