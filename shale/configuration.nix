@@ -27,7 +27,7 @@
     "/crypto_keyfile.bin" = null;
   };
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "shale"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -53,6 +53,11 @@
     LC_PAPER = "en_US.UTF-8";
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
+  };
+
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
   };
 
   # Enable CUPS to print documents.
