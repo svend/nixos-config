@@ -17,6 +17,21 @@
   # https://github.com/NixOS/nixpkgs/issues/42291#issuecomment-687979733
   services.gnome.gnome-keyring.enable = pkgs.lib.mkForce false;
 
+  services.xserver.desktopManager.gnome = {
+    # Show local overrides: dconf dump /org/gnome/
+    # Reset to default: dconf reset /org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type
+    extraGSettingsOverrides = ''
+      # Do not sleep when on AC power
+      [settings-daemon/plugins/power]
+      sleep-inactive-ac-type='nothing'
+    '';
+
+    extraGSettingsOverridePackages = [
+      pkgs.gsettings-desktop-schemas # for org.gnome.desktop
+      pkgs.gnome.gnome-shell # for org.gnome.shell
+    ];
+  };
+
   environment.systemPackages = with pkgs; [
     acpi # acpi CLI, show CPU temps, etc
     # chromium
