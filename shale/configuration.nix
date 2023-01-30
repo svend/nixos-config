@@ -104,7 +104,7 @@
   users.users.svend = {
     isNormalUser = true;
     description = "Svend Sorensen";
-    extraGroups = [  "docker" "networkmanager" "wheel" ];
+    extraGroups = [ "docker" "networkmanager" "wheel" ];
     # packages = with pkgs; [
     #   #  thunderbird
     # ];
