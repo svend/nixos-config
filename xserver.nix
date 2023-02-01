@@ -18,11 +18,18 @@
   services.gnome.gnome-keyring.enable = pkgs.lib.mkForce false;
 
   services.xserver.desktopManager.gnome = {
-    # Show local overrides: dconf dump /org/gnome/
-    # Reset to default: dconf reset /org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type
+    # nix shell nix shell nixpkgs#gnome.dconf-editor
+    # gsettings get org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type
+    # gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+    # gsettings reset org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type
+    #
+    # Show local overrides: dconf dump /
+    # dconf dump /org/gnome/settings-daemon/plugins/power/
+    # Reset to default:
+    # dconf reset /org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type
     extraGSettingsOverrides = ''
       # Do not sleep when on AC power
-      [settings-daemon/plugins/power]
+      [org.gnome.settings-daemon.plugins.power]
       sleep-inactive-ac-type='nothing'
     '';
 
@@ -36,6 +43,7 @@
     acpi # acpi CLI, show CPU temps, etc
     # chromium
     gcompris # educational software
+    gnome.dconf-editor # for dconf-editor and gsettings
     google-chrome
     (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
     gimp

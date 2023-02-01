@@ -13,7 +13,7 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../display-switch.nix
-      ../interception-tools.nix
+      # ../interception-tools.nix # using a programmable keyboard instead
       ../wireguard.nix
       ../xserver.nix
     ];
