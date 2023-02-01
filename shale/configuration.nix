@@ -14,6 +14,7 @@
       ./hardware-configuration.nix
       ../display-switch.nix
       # ../interception-tools.nix # using a programmable keyboard instead
+      ../via.nix
       ../wireguard.nix
       ../xserver.nix
     ];
