@@ -24,7 +24,6 @@
     # gsettings reset org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type
     #
     # Show local overrides: dconf dump /
-    # dconf dump /org/gnome/settings-daemon/plugins/power/
     # Reset to default:
     # dconf reset /org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type
     extraGSettingsOverrides = ''
@@ -39,6 +38,7 @@
     extraGSettingsOverridePackages = [
       pkgs.gsettings-desktop-schemas # for org.gnome.desktop
       pkgs.gnome.gnome-shell # for org.gnome.shell
+      pkgs.gnome.gnome-settings-daemon # https://github.com/NixOS/nixpkgs/issues/42053#issuecomment-397474298
     ];
   };
 
