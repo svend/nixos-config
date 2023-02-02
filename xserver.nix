@@ -28,6 +28,9 @@
     # Reset to default:
     # dconf reset /org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type
     extraGSettingsOverrides = ''
+      [org.gnome.desktop.peripherals.mouse]
+      natural-scroll=true
+
       # Do not sleep when on AC power
       [org.gnome.settings-daemon.plugins.power]
       sleep-inactive-ac-type='nothing'
