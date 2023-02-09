@@ -30,6 +30,17 @@
       [org.gnome.desktop.peripherals.mouse]
       natural-scroll=true
 
+      [org.gnome.desktop.wm.keybindings]
+      activate-window-menu=@as []
+      switch-input-source=@as []
+      switch-input-source-backward=@as []
+
+      [org.gnome.shell.keybindings]
+      toggle-overview=['<Super>space']
+
+      [org.gnome.settings-daemon.plugins.media-keys]
+      screensaver=['<Alt><Super>l']
+
       # Do not sleep when on AC power
       [org.gnome.settings-daemon.plugins.power]
       sleep-inactive-ac-type='nothing'
