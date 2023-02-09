@@ -78,15 +78,7 @@
     ];
   };
 
-
-  virtualisation.podman = {
-      enable = true;
-      # Create a `docker` alias for podman, to use it as a drop-in replacement
-      dockerCompat = true;
-      # Required for containers under podman-compose to be able to talk to each other
-      defaultNetwork.dnsname.enable = true;
-  };
-  # virtualisation.docker.enable = true;
+  virtualisation.docker.enable = true;
   # virtualisation.libvirtd.enable = true;
 
   # Enable sound with pipewire.
@@ -113,7 +105,7 @@
   users.users.svend = {
     isNormalUser = true;
     description = "Svend Sorensen";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "docker" "networkmanager" "wheel" ];
     # packages = with pkgs; [
     #   #  thunderbird
     # ];
