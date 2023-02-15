@@ -39,7 +39,7 @@
       toggle-overview=['<Super>space']
 
       [org.gnome.settings-daemon.plugins.media-keys]
-      screensaver=['<Alt><Super>l']
+      screensaver=['<Shift><Super>l']
 
       # Do not sleep when on AC power
       [org.gnome.settings-daemon.plugins.power]
