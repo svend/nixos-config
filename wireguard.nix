@@ -10,9 +10,8 @@
       peers = [
         # Raspberry Pi
         {
-          # allowedIPs = [ "0.0.0.0/0" "::/0" ];
+          # allowedIPs = [ "0.0.0.0/0" "::/0" ]; # route all traffic through WG
           allowedIPs = [ "10.0.0.0/24" "fd00::/64" ];
-          # endpoint = "73.53.67.69:51820";
           endpoint = "10.10.0.238:51820";
           publicKey = "Kd1JuRVmitgnwVfesMFB5z7E4saFoWSiZPzVuiafn1w=";
         }

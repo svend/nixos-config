@@ -15,6 +15,7 @@
       ../display-switch.nix
       # ../interception-tools.nix # using a programmable keyboard instead
       ../iphone.nix
+      ../prometheus.nix
       ../via.nix
       ../wireguard.nix
       ../xserver.nix
