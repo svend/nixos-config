@@ -63,6 +63,8 @@
     gimp
     inkscape
     libnotify # notify-send
+    libreoffice
+    hunspell # spelling for libreoffice
     traceroute
     xorg.xev # keyboard/mouse event viewer
   ];

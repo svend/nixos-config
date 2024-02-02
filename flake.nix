@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixos.url = "nixpkgs/release-23.05";
+    nixos.url = "nixpkgs/release-23.11";
     nixos-unstable.url = "nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
   };
