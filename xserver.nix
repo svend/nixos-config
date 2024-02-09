@@ -59,7 +59,7 @@
     gcompris # educational software
     gnome.dconf-editor # for dconf-editor and gsettings
     google-chrome
-    (firefox.override { extraNativeMessagingHosts = [ passff-host ]; })
+    (firefox.override { nativeMessagingHosts = [ passff-host ]; })
     gimp
     inkscape
     libnotify # notify-send

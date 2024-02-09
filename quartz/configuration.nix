@@ -97,7 +97,7 @@
       # sudo mkdir -p -m 700 /etc/nixos-secrets/passwd.d
       # mkpasswd -m sha-512 | sudo tee /etc/nixos-secrets/passwd.d/svend >/dev/null
       # hashedPassword = "";
-      passwordFile = "/etc/nixos-secrets/passwd.d/svend";
+      hashedPasswordFile = "/etc/nixos-secrets/passwd.d/svend";
     };
     extraGroups.svend = {
       gid = 1000;

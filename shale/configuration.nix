@@ -111,7 +111,7 @@
     # packages = with pkgs; [
     #   #  thunderbird
     # ];
-    passwordFile = "/etc/nixos-secrets/passwd.d/svend";
+    hashedPasswordFile = "/etc/nixos-secrets/passwd.d/svend";
   };
 
   services.pcscd.enable = true;
