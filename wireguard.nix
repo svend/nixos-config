@@ -6,12 +6,18 @@
 
   networking.wg-quick.interfaces = {
     wg0 = {
-      address = [ "10.0.0.10/24" "fd00::10/64" ];
+      address = [
+        "10.0.0.10/24"
+        "fd00::10/64"
+      ];
       peers = [
         # Raspberry Pi
         {
           # allowedIPs = [ "0.0.0.0/0" "::/0" ]; # route all traffic through WG
-          allowedIPs = [ "10.0.0.0/24" "fd00::/64" ];
+          allowedIPs = [
+            "10.0.0.0/24"
+            "fd00::/64"
+          ];
           endpoint = "10.10.0.238:51820";
           publicKey = "Kd1JuRVmitgnwVfesMFB5z7E4saFoWSiZPzVuiafn1w=";
         }

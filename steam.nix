@@ -2,7 +2,5 @@
 {
   hardware.opengl.driSupport32Bit = true;
 
-  environment.systemPackages = with pkgs; [
-    steam
-  ];
+  environment.systemPackages = with pkgs; [ steam ];
 }

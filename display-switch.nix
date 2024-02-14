@@ -9,20 +9,22 @@
 
   systemd.services.display-switch =
     let
-      display-switch-config = pkgs.runCommand "display-switch-config"
-        {
-          config = pkgs.writeText "display-switch.ini" ''
-            # Terminus Technology Inc. Hub
-            usb_device = "1a40:0101"
-            # usb_device = "046d:c408" # Logitech, Inc. Marble Mouse (4-button)
-            # Values are Hdmi1, Hdmi2, DisplayPort1, DisplayPort2
-            on_usb_connect = "DisplayPort1"
-            on_usb_disconnect = "Hdmi1"
+      display-switch-config =
+        pkgs.runCommand "display-switch-config"
+          {
+            config = pkgs.writeText "display-switch.ini" ''
+              # Terminus Technology Inc. Hub
+              usb_device = "1a40:0101"
+              # usb_device = "046d:c408" # Logitech, Inc. Marble Mouse (4-button)
+              # Values are Hdmi1, Hdmi2, DisplayPort1, DisplayPort2
+              on_usb_connect = "DisplayPort1"
+              on_usb_disconnect = "Hdmi1"
+            '';
+          }
+          ''
+            mkdir -p "$out/display-switch"
+            cp "$config" "$out/display-switch/display-switch.ini"
           '';
-        } ''
-        mkdir -p "$out/display-switch"
-        cp "$config" "$out/display-switch/display-switch.ini"
-      '';
     in
     {
       description = "USB-triggered display switch";

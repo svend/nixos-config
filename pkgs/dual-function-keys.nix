@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, pkgconfig
-, libyamlcpp
-, libevdev
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  pkgconfig,
+  libyamlcpp,
+  libevdev,
 }:
 
 stdenv.mkDerivation rec {
@@ -18,7 +19,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgconfig ];
-  buildInputs = [ libevdev libyamlcpp ];
+  buildInputs = [
+    libevdev
+    libyamlcpp
+  ];
 
   prePatch = ''
     substituteInPlace config.mk --replace \
@@ -26,7 +30,10 @@ stdenv.mkDerivation rec {
       "$(pkg-config --cflags libevdev | cut -c 3-)"
   '';
 
-  installFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
+  installFlags = [
+    "DESTDIR=$(out)"
+    "PREFIX="
+  ];
 
   meta = with lib; {
     homepage = "https://gitlab.com/interception/linux/plugins/dual-function-keys";

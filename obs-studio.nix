@@ -1,14 +1,10 @@
 { config, pkgs, ... }:
 {
   # Add the v4l2loopback module package
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    v4l2loopback
-  ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
 
   # And load it on boot
-  boot.kernelModules = [
-    "v4l2loopback"
-  ];
+  boot.kernelModules = [ "v4l2loopback" ];
 
   boot.extraModprobeConfig = ''
     options v4l2loopback exclusive_caps=1 video_nr=5,6

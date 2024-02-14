@@ -1,5 +1,4 @@
-self: super:
-{
+self: super: {
   # interception-tools = super.interception-tools.overrideAttrs (old: rec {
   #   version = "0.6.4";
   #   baseName = "interception-tools";

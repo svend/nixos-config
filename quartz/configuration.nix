@@ -7,20 +7,19 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [ (import ../overlays/pkgs.nix) ];
 
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../display-switch.nix
-      ../interception-tools.nix
-      ../nix-flakes.nix
-      ../obs-studio.nix
-      ../prometheus.nix
-      # ./steam.nix
-      ../wireguard.nix
-      ../xserver.nix
-      ../iphone.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../display-switch.nix
+    ../interception-tools.nix
+    ../nix-flakes.nix
+    ../obs-studio.nix
+    ../prometheus.nix
+    # ./steam.nix
+    ../wireguard.nix
+    ../xserver.nix
+    ../iphone.nix
+  ];
 
   # temp: netbook router
   # networking.firewall.enable = false;
@@ -89,7 +88,12 @@
       description = "Svend Sorensen";
       createHome = true;
       home = "/home/svend";
-      extraGroups = [ "dialout" "docker" "networkmanager" "wheel" ];
+      extraGroups = [
+        "dialout"
+        "docker"
+        "networkmanager"
+        "wheel"
+      ];
       useDefaultShell = true;
       uid = 1000;
       group = "svend";

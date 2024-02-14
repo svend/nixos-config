@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchurl
-, pkgconfig
-, cmake
-, libyamlcpp
-, libevdev
-, udev
-, boost
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkgconfig,
+  cmake,
+  libyamlcpp,
+  libevdev,
+  udev,
+  boost,
 }:
 
 let
@@ -21,8 +22,16 @@ stdenv.mkDerivation {
     sha256 = "sha256-HDM1iNdv/HZ1oyufkLJEAofR4oUpEKh3goeLRXw2s6E=";
   };
 
-  nativeBuildInputs = [ cmake pkgconfig ];
-  buildInputs = [ libevdev udev libyamlcpp boost ];
+  nativeBuildInputs = [
+    cmake
+    pkgconfig
+  ];
+  buildInputs = [
+    libevdev
+    udev
+    libyamlcpp
+    boost
+  ];
 
   prePatch = ''
     substituteInPlace CMakeLists.txt --replace \

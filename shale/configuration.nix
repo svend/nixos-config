@@ -8,18 +8,17 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [ (import ../overlays/pkgs.nix) ];
 
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../display-switch.nix
-      # ../interception-tools.nix # using a programmable keyboard instead
-      ../iphone.nix
-      ../prometheus.nix
-      ../via.nix
-      ../wireguard.nix
-      ../xserver.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../display-switch.nix
+    # ../interception-tools.nix # using a programmable keyboard instead
+    ../iphone.nix
+    ../prometheus.nix
+    ../via.nix
+    ../wireguard.nix
+    ../xserver.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -107,7 +106,11 @@
   users.users.svend = {
     isNormalUser = true;
     description = "Svend Sorensen";
-    extraGroups = [ "docker" "networkmanager" "wheel" ];
+    extraGroups = [
+      "docker"
+      "networkmanager"
+      "wheel"
+    ];
     # packages = with pkgs; [
     #   #  thunderbird
     # ];

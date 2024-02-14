@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, udev, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  udev,
+  pkg-config,
+}:
 
 rustPlatform.buildRustPackage {
   pname = "display-switch";
