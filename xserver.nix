@@ -67,5 +67,7 @@
     hunspell # spelling for libreoffice
     traceroute
     xorg.xev # keyboard/mouse event viewer
+    kphotoalbum
+    libsForQt5.kimageformats # heif support for KDE apps
   ];
 }
